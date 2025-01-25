@@ -71,6 +71,7 @@ export class UsersPage implements OnInit {
           }).then(() => {
             // Limpiar los datos del formulario
             this.userForm.reset(); // Usa reset en lugar de asignar vacío
+            this.fetchUser();
           });
         } else {
           Swal.fire({
@@ -126,12 +127,5 @@ export class UsersPage implements OnInit {
     const emailControl = this.userForm.get('email');
     return emailControl && emailControl.invalid && emailControl.touched;
   }
-  // Función para eliminar o editar (puedes expandirla)
-  editRow(id: number) {
-    console.log('Editar usuario con ID:', id);
-  }
 
-  deleteRow(id: number) {
-    this.userData = this.userData.filter((row: { id: number }) => row.id !== id);
-  }
 }

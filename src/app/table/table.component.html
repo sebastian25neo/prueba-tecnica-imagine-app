@@ -18,7 +18,7 @@
           {{ row[column] }}
         </ion-col>
         <ion-col size="3" class="actions">
-          <ion-button fill="outline" color="primary" (click)="editRow(row.id)">
+          <ion-button fill="outline" color="primary" (click)="openEditModal(row)">
             Editar
           </ion-button>
           <ion-button fill="outline" color="danger" (click)="deleteRow(row.id)">
@@ -46,3 +46,14 @@
     </div>
   </ion-card-content>
 </ion-card>
+
+<!-- Move modal definition here -->
+<ion-modal #editModal [isOpen]="isModalOpen" (didDismiss)="closeModal()" >
+  <ng-template>
+    <app-modal-edit 
+      [rowData]="selectedRow" 
+      (closeModal)="closeModal()"
+      (saveUser)="saveUserChanges($event)">
+    </app-modal-edit>
+  </ng-template>
+</ion-modal>

@@ -35,52 +35,16 @@ export class UserService {
     }
   }
 
-  async obtenerResources(): Promise<any> {
+  async editUser(id: number, datos: any): Promise<any> {
     try {
       // Usar la variable baseUrl para la URL completa
-      const respuesta = await axios.get(`${this.baseUrl}/api/resources`);
-      return respuesta.data;
-    } catch (error) {
-      console.error('Error al obtener los usuarios:', error);
-      throw error;
-    }
-  }
-
-  async enviarDatosFormularioResource(datos: any): Promise<any> {
-    try {
-      // Usar la variable baseUrl para la URL completa
-      const respuesta = await axios.post(
-        `${this.baseUrl}/api/resources`,
+      const respuesta = await axios.put(
+        `${this.baseUrl}/api/User/edit/${id}`,
         datos
       );
       return respuesta.data;
     } catch (error) {
       console.error('Error al enviar los datos:', error);
-      throw error;
-    }
-  }
-
-  async enviarDatosFormularioReservation(datos: any): Promise<any> {
-    try {
-      // Usar la variable baseUrl para la URL completa
-      const respuesta = await axios.post(
-        `${this.baseUrl}/api/reservations`,
-        datos
-      );
-      return respuesta.data;
-    } catch (error) {
-      console.error('Error al enviar los datos:', error);
-      throw error;
-    }
-  }
-
-  async obtenerReservations(): Promise<any> {
-    try {
-      // Usar la variable baseUrl para la URL completa
-      const respuesta = await axios.get(`${this.baseUrl}/api/reservations`);
-      return respuesta.data;
-    } catch (error) {
-      console.error('Error al obtener los usuarios:', error);
       throw error;
     }
   }

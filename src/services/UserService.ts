@@ -49,9 +49,9 @@ export class UserService {
     }
   }
 
-  async eliminarReservation(reservationId: number): Promise<any> {
+  async deleteUser(id: number): Promise<any> {
     const respuesta = await axios.delete(
-      `${this.baseUrl}/api/reservations/${reservationId}`
+      `${this.baseUrl}/api/User/delete/${id}`
     );
     return respuesta.data;
   }

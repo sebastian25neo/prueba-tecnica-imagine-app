@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
 import { ModalEditComponent } from 'src/app/modal-edit/modal-edit.component';
+import { UserService } from '../../services/UserService';
+import Swal from 'sweetalert2'; // Importar SweetAlert2
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -12,6 +14,8 @@ import { ModalEditComponent } from 'src/app/modal-edit/modal-edit.component';
   imports: [CommonModule, IonicModule, ReactiveFormsModule, TableComponent, ModalEditComponent ],
 })
 export class TableComponent {
+
+
   @Input() data: any[] = [];
   @Input() columns: string[] = [];
   @Input() tableTitle: string = '';
@@ -19,6 +23,11 @@ export class TableComponent {
 
   @ViewChild('editModal') modal!: IonModal;
   
+
+  constructor(
+    private userService: UserService
+  ) {}
+
   isModalOpen = false;
   selectedRow: any;
 
@@ -52,9 +61,72 @@ export class TableComponent {
     }
   }
 
-  deleteRow(id: number) {
-    this.data = this.data.filter((row) => row.id !== id);
+  async deleteRow(id: number) {
+    // Mostrar modal de confirmación antes de eliminar
+    const confirm = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas eliminar este usuario?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      backdrop: false, // Desactiva el fondo oscuro
+    });
+  
+    if (confirm.isConfirmed) {
+      try {
+        // Llamada al servicio para eliminar el usuario
+        const respuesta = await this.userService.deleteUser(id);
+        
+        if (respuesta.status === 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'Usuario eliminado con éxito',
+            backdrop: false, // Desactiva el fondo oscuro
+          }).then(() => {
+            // Eliminar el usuario de la lista
+            this.data = this.data.filter((row) => row.id !== id);
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error al eliminar el usuario',
+            backdrop: false, // Desactiva el fondo oscuro
+          });
+        }
+      } catch (error: any) {
+        console.error('Error al eliminar el usuario:', error);
+  
+        // Verificación de la estructura del error
+        if (
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.response.data.message,
+            backdrop: false, // Desactiva el fondo oscuro
+          });
+        } else {
+          // Manejo de errores desconocidos o sin la estructura esperada
+          Swal.fire({
+            icon: 'error',
+            title: 'Error desconocido',
+            text: 'Hubo un problema al procesar la solicitud. Intente de nuevo más tarde.',
+            backdrop: false, // Desactiva el fondo oscuro
+          });
+        }
+      }
+    } else {
+      console.log('Acción cancelada por el usuario');
+    }
   }
+  
 
   saveUserChanges(updatedUser: any) {
     const index = this.data.findIndex(user => user.id === updatedUser.id);

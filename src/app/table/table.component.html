@@ -1,0 +1,48 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{ tableTitle }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid *ngIf="data.length > 0; else noData">
+      <ion-row class="table-header">
+        <ion-col size="3" *ngFor="let column of columnsName">
+          <strong>{{ column }}</strong>
+        </ion-col>
+        <ion-col size="3">
+          <strong>Acciones</strong>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let row of paginatedData" class="table-row">
+        <ion-col size="3" *ngFor="let column of columns">
+          {{ row[column] }}
+        </ion-col>
+        <ion-col size="3" class="actions">
+          <ion-button fill="outline" color="primary" (click)="editRow(row.id)">
+            Editar
+          </ion-button>
+          <ion-button fill="outline" color="danger" (click)="deleteRow(row.id)">
+            Eliminar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ng-template #noData>
+      <ion-text color="medium">
+        <p>No hay datos disponibles</p>
+      </ion-text>
+    </ng-template>
+
+    <!-- Paginación -->
+    <div *ngIf="data.length > 5" class="pagination">
+      <ion-button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+        Anterior
+      </ion-button>
+      <span> Página {{ currentPage }} de {{ totalPages }} </span>
+      <ion-button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
+        Siguiente
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

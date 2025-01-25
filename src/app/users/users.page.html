@@ -3,49 +3,70 @@
     <ion-title>Crear Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Crear Usuarios</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <ion-card>
     <ion-card-header>
       <ion-card-title>Nuevo Usuario</ion-card-title>
     </ion-card-header>
-
     <ion-card-content>
-      <form (ngSubmit)="onSubmit()">
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input 
-            [(ngModel)]="user.name" 
-            name="name" 
-            type="text" 
-            required
-          ></ion-input>
-        </ion-item>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-input
+              label="Nombre"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Ingrese su nombre"
+              formControlName="name"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isNameInvalid()">
+            <small
+              >El nombre es requerido y debe tener al menos 2 caracteres</small
+            >
+          </ion-text>
+        </div>
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-input
+              label="Correo Electrónico"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Ingrese su correo"
+              formControlName="email"
+              type="email"
+            ></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isEmailInvalid()">
+            <small>Ingrese un correo electrónico válido</small>
+          </ion-text>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Correo Electrónico</ion-label>
-          <ion-input 
-            [(ngModel)]="user.email" 
-            name="email" 
-            type="email" 
-            required
-          ></ion-input>
-        </ion-item>
-
-        <ion-button 
-          expand="block" 
-          type="submit" 
+        <ion-button
+          expand="block"
+          type="submit"
           class="ion-margin-top"
+          [disabled]="userForm.invalid"
         >
           Crear Usuario
         </ion-button>
       </form>
     </ion-card-content>
   </ion-card>
+
+  <!-- Tabla Usuarios -->
+  <app-table
+    [data]="userData"
+    [columnsName]="tableColumnsName"
+    [columns]="tableColumns"
+    tableTitle="Usuarios Registrados"
+    style="margin-top: 20px"
+  >
+  </app-table>
 </ion-content>

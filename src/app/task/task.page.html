@@ -1,0 +1,116 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Crear Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Crear Tareas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nueva Tarea</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-select
+              label="Usuario"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Seleccione un usuario"
+              formControlName="user_id"
+            >
+              <ion-select-option *ngFor="let user of usersList" [value]="user.id">
+                {{ user.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isFieldInvalid('user_id')">
+            <small>Debe seleccionar un usuario</small>
+          </ion-text>
+        </div>
+
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-input
+              label="Título"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Ingrese el título"
+              formControlName="title"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isFieldInvalid('title')">
+            <small>El título es requerido</small>
+          </ion-text>
+        </div>
+
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-textarea
+              label="Descripción"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Ingrese la descripción"
+              formControlName="description"
+            ></ion-textarea>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isFieldInvalid('description')">
+            <small>La descripción es requerida</small>
+          </ion-text>
+        </div>
+
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-select
+              label="Estado"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Seleccione un estado"
+              formControlName="status"
+            >
+              <ion-select-option value="pendiente">Pendiente</ion-select-option>
+              <ion-select-option value="en_progreso">En Progreso</ion-select-option>
+              <ion-select-option value="completado">Completado</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isFieldInvalid('status')">
+            <small>Debe seleccionar un estado</small>
+          </ion-text>
+        </div>
+
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-datetime
+              label="Fecha de Vencimiento"
+              label-placement="floating"
+              fill="outline"
+              formControlName="due_date"
+              display-format="YYYY-MM-DD"
+            ></ion-datetime>
+          </ion-item>
+          <ion-text color="danger" *ngIf="isFieldInvalid('due_date')">
+            <small>Debe seleccionar una fecha válida</small>
+          </ion-text>
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          class="ion-margin-top"
+          [disabled]="taskForm.invalid"
+        >
+          Crear Tarea
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

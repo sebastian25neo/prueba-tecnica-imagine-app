@@ -4,9 +4,9 @@ import axios from 'axios';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class TaskService {
   // Variable global para la URL base de la API
-  private baseUrl: string = 'http://localhost:8000';
+  private baseUrl: string = 'http://localhost:8080';
 
   constructor() {}
 
@@ -14,7 +14,7 @@ export class UserService {
     try {
       // Usar la variable baseUrl para la URL completa
       const respuesta = await axios.post(
-        `${this.baseUrl}/api/User/create`,
+        `${this.baseUrl}/api/Task/create`,
         datos
       );
       return respuesta.data;

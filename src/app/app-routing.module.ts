@@ -13,6 +13,14 @@ const routes: Routes = [
   },  {
     path: 'users',
     loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
+  },
+  {
+    path: 'task',
+    loadChildren: () => import('./task/task.module').then( m => m.TaskPageModule)
+  },
+  {
+    path: 'view-task',
+    loadChildren: () => import('./view-task/view-task.module').then( m => m.ViewTaskPageModule)
   }
 
 ];

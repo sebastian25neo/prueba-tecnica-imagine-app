@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
-import { ModalEditComponent } from 'src/app/modal-edit/modal-edit.component';
+import { ModalEditComponent } from 'src/app/componen/modal-edit/modal-edit.component';
 import { UserService } from '../../../services/UserService';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 @Component({

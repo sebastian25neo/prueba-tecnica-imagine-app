@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActionSheetController } from '@ionic/angular';
-import { UserService } from '../../services/UserService';
+import { UserService } from '../../../services/UserService';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 @Component({

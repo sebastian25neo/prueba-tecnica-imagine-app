@@ -44,7 +44,7 @@ export class UsersPage implements OnInit {
     try {
       const response = await this.userService.getUsers();
       this.userData = Array.isArray(response) ? response : []; 
-      console.log("reservaciones obtenidas:", this.userData);
+
     } catch (error) {
       console.error("Error al obtener las reservaciones:", error);
     }

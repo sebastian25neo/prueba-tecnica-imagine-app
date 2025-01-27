@@ -1,0 +1,35 @@
+<!-- Mensaje para seleccionar filtros -->
+<ion-card *ngIf="tasks.length === 0">
+  <ion-card-header>
+    <ion-card-title>Por favor, seleccione los filtros de búsqueda o haga clic en el botón de buscar</ion-card-title>
+  </ion-card-header>
+</ion-card>
+
+<!-- Tareas -->
+<ion-card *ngFor="let task of paginatedTasks">
+  <ion-card-header>
+    <ion-card-title>{{ task.title }}</ion-card-title>
+    <ion-card-subtitle [ngClass]="getStatusClass(task.status)">Estado: {{ task.status }}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p><strong>Descripción:</strong> {{ task.description }}</p>
+    <p><strong>Fecha de vencimiento:</strong> {{ task.dueDate | date:'dd/MM/yyyy' }}</p>
+  </ion-card-content>
+
+  <ion-button fill="clear" (click)="editTask(task)">Editar</ion-button>
+  <ion-button fill="clear" color="danger" (click)="deleteTask(task.id)">Eliminar</ion-button>
+</ion-card>
+
+<!-- Paginación -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [disabled]="currentPage === 1" (click)="previousPage()">Anterior</ion-button>
+    </ion-buttons>
+    <ion-title>Página {{ currentPage }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="currentPage === totalPages" (click)="nextPage()">Siguiente</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

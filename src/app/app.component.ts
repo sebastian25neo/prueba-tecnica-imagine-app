@@ -9,6 +9,7 @@ export class AppComponent {
   public appPages = [
     { title: 'Crear Usuarios', url: '/users', icon: 'mail' },
     { title: 'Crear Tareas', url: '/task', icon: 'mail' },
+    { title: 'Visualizar Tareas', url: '/view-task', icon: 'mail' },
   ];
   constructor() {}
 }

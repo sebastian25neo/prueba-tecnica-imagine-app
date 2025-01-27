@@ -13,8 +13,9 @@ import { ViewTaskPage } from './view-task.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewTaskPageRoutingModule
+    ViewTaskPageRoutingModule,
+    ViewTaskPage
   ],
-  declarations: [ViewTaskPage]
+  //declarations: [ViewTaskPage]
 })
 export class ViewTaskPageModule {}

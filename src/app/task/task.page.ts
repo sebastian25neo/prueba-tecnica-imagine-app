@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { TaskService } from '../../services/TaskService';
 import { UserService } from '../../services/UserService';
-//import { TableComponent } from 'src/app/table/table.component';
+import { ApptaskcardsComponent } from 'src/app/componen/apptaskcards/apptaskcards.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,18 +17,18 @@ import Swal from 'sweetalert2';
   templateUrl: './task.page.html',
   styleUrls: ['./task.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    ReactiveFormsModule,
+    ApptaskcardsComponent,
+  ],
 })
 export class TaskPage implements OnInit {
   taskForm!: FormGroup;
   taskData: any[] = [];
   users: any[] = [];
-  usersList: any[] = [];  // Lista de usuarios para el select
-
-  // tableColumnsName: string[] = [
-  //   'Usuario', 'Título', 'Descripción', 'Estado', 'Fecha de Vencimiento'
-  // ];
-  // tableColumns = ['user_id', 'title', 'description', 'status', 'due_date'];
+  usersList: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,17 +53,16 @@ export class TaskPage implements OnInit {
     try {
       const response = await this.userService.getUsers();
       this.usersList = Array.isArray(response) ? response : [];
-      console.log("Usuarios obtenidos:", this.usersList);
+      console.log('Usuarios obtenidos:', this.usersList);
     } catch (error) {
-      console.error("Error al obtener los usuarios:", error);
+      console.error('Error al obtener los usuarios:', error);
     }
   }
-
 
   async onSubmit() {
     if (this.taskForm.valid) {
       console.log('Tarea creada:', this.taskForm.value);
-      
+
       const dataForm = {
         userId: this.taskForm.value.user_id,
         title: this.taskForm.value.title,
@@ -71,7 +70,6 @@ export class TaskPage implements OnInit {
         status: this.taskForm.value.status,
         dueDate: new Date(this.taskForm.value.due_date).toISOString(),
       };
-      
 
       try {
         const respuesta = await this.taskService.sendFormData(dataForm);

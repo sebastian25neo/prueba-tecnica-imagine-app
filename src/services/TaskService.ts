@@ -24,10 +24,12 @@ export class TaskService {
     }
   }
 
-  async getUsers(): Promise<any> {
+  async taskSearch(id: number, status: string): Promise<any> {
     try {
       // Usar la variable baseUrl para la URL completa
-      const respuesta = await axios.get(`${this.baseUrl}/api/User/all`);
+      const respuesta = await axios.get(
+        `${this.baseUrl}/api/Task/search?userId=${id}&status=${status}`
+      );
       return respuesta.data;
     } catch (error) {
       console.error('Error al obtener los usuarios:', error);

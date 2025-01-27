@@ -1,13 +1,67 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>viewTask</ion-title>
+    <ion-title>Visualizar Tareas</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">viewTask</ion-title>
+      <ion-title size="large">Filtro búsqueda</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filtro búsqueda</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="filterForm" (ngSubmit)="onSearch()">
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-select
+              label="Usuario"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Seleccione un usuario"
+              formControlName="user_id"
+            >
+              <ion-select-option *ngFor="let user of usersList" [value]="user.id">
+                {{ user.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+    
+        <div class="ion-margin-top">
+          <ion-item>
+            <ion-select
+              label="Estado"
+              label-placement="floating"
+              fill="outline"
+              placeholder="Seleccione un estado"
+              formControlName="status"
+            >
+              <ion-select-option value="pendiente">Pendiente</ion-select-option>
+              <ion-select-option value="en_progreso">atrasada</ion-select-option>
+              <ion-select-option value="completado">Completado</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+    
+        <ion-button
+          expand="block"
+          type="submit"
+          class="ion-margin-top"
+        >
+          Buscar
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <app-apptaskcards
+  [tasks]="taskList" 
+  (edit)="onEdit($event)" 
+  (delete)="onDelete($event)">
+</app-apptaskcards>
+
 </ion-content>

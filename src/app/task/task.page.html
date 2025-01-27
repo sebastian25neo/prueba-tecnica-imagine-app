@@ -1,19 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Crear Tareas</ion-title>
+    <ion-title>{{ isEditing ? 'Editar Tarea' : 'Crear Tarea' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Crear Tareas</ion-title>
+      <ion-title size="large">{{ isEditing ? 'Editar Tarea' : 'Crear Tarea' }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Nueva Tarea</ion-card-title>
+      <ion-card-title>{{ isEditing ? 'Editar Tarea' : 'Nueva Tarea' }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
@@ -107,7 +107,18 @@
           class="ion-margin-top"
           [disabled]="taskForm.invalid"
         >
-          Crear Tarea
+          {{ isEditing ? 'Actualizar Tarea' : 'Crear Tarea' }}
+        </ion-button>
+
+        <!-- Botón para visualizar la tarea solo en modo edición -->
+        <ion-button
+          expand="block"
+          color="secondary"
+          class="ion-margin-top"
+          *ngIf="isEditing"
+          (click)="viewTask()"
+        >
+          Visualizar Tarea
         </ion-button>
       </form>
     </ion-card-content>

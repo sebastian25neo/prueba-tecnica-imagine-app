@@ -4,18 +4,19 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
+    redirectTo: 'users',
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },  {
     path: 'users',
     loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
   },
   {
     path: 'task',
+    loadChildren: () => import('./task/task.module').then(m => m.TaskPageModule)
+  },
+  {
+    path: 'task/:taskId',
     loadChildren: () => import('./task/task.module').then( m => m.TaskPageModule)
   },
   {

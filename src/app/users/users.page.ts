@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserService } from '../../services/UserService';
-import { TableComponent } from 'src/app/table/table.component';
+import { TableComponent } from 'src/app/componen/table/table.component';
 import Swal from 'sweetalert2'; // Importar SweetAlert2
 
 @Component({

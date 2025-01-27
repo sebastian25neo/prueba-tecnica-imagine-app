@@ -23,6 +23,19 @@ export class TaskService {
       throw error;
     }
   }
+  
+  async getTaskById(id: number ): Promise<any> {
+    try {
+      // Usar la variable baseUrl para la URL completa
+      const respuesta = await axios.get(
+        `${this.baseUrl}/api/Task/${id}`
+      );
+      return respuesta.data;
+    } catch (error) {
+      console.error('Error al enviar los datos:', error);
+      throw error;
+    }
+  }
 
   async taskSearch(id: number, status: string): Promise<any> {
     try {
@@ -37,11 +50,11 @@ export class TaskService {
     }
   }
 
-  async editUser(id: number, datos: any): Promise<any> {
+  async editTask(id: number, datos: any): Promise<any> {
     try {
       // Usar la variable baseUrl para la URL completa
       const respuesta = await axios.put(
-        `${this.baseUrl}/api/User/edit/${id}`,
+        `${this.baseUrl}/api/Task/edit/${id}`,
         datos
       );
       return respuesta.data;
@@ -51,9 +64,9 @@ export class TaskService {
     }
   }
 
-  async deleteUser(id: number): Promise<any> {
+  async deleteTask(id: number): Promise<any> {
     const respuesta = await axios.delete(
-      `${this.baseUrl}/api/User/delete/${id}`
+      `${this.baseUrl}/api/Task/delete/${id}`
     );
     return respuesta.data;
   }
